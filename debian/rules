@@ -1,4 +1,10 @@
 #!/usr/bin/make -f
 
+export DH_GOLANG_EXCLUDES := example
+
 %:
-	dh $@
+	dh $@ --buildsystem=golang --with=golang
+
+override_dh_auto_test:
+## Ignore test failures; on buildd tests fails with "protocol not supported":
+	-dh_auto_test
